@@ -7,8 +7,9 @@ export function ContactsForm() {
   const [name, setName] = useState('');
   const [number, setNumber] = useState('');
 
-  const { data: contacts = [] } = useFetchContactsQuery();
+  const { data } = useFetchContactsQuery();
   const [addContacts] = useAddContactMutation();
+
   const handleChange = e => {
     const { name, value } = e.currentTarget;
     console.log(name, value);
@@ -36,7 +37,7 @@ export function ContactsForm() {
     e.preventDefault();
     const normalizedName = name.toLowerCase();
 
-    const duplicate = contacts.find(
+    const duplicate = data.find(
       item => item.name.toLowerCase() === normalizedName
     );
 
@@ -85,17 +86,3 @@ export function ContactsForm() {
     </WrapperForm>
   );
 }
-
-//----------------------  duplicate  -------App--------------------
-// const normalizedName = name.toLowerCase();
-
-//     const duplicate = contacts.find(
-//       // ({ name }) => name.toLowerCase() === normalizedName
-//       contact => contact.name.toLowerCase() === normalizedName
-//     );
-
-//     if (duplicate) {
-//       alert(`${name} is already in contacts.`);
-//     } else {
-//       setContacts(prevState => [contact, ...prevState]);
-//     }
